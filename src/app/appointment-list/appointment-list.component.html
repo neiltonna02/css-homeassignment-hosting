@@ -1,0 +1,56 @@
+<!-- If there are no appointments -->
+<p class="alert alert-secondary mt-4 mb-4 ms-2 mx-2 text-center" *ngIf="!(appointments?.length)">
+    No appointments to display.
+</p>
+
+<!-- If there is at least one appointment -->
+<div *ngIf="appointments?.length">
+    <h5 class="alert alert-primary mt-4 mb-4 ms-2 mx-2 text-center">Showing list of appointments...</h5>
+
+    <div class="text-center">
+        <button (click)="excelExport()" class="btn btn-secondary btn-block m-2">Export to Excel</button>
+        <!-- <button (click)="pdfExport()" class="btn btn-secondary btn-block m-2">Export to PDF</button> -->
+        <input type="button" value="Download PDF" class="btn btn-secondary btn-block m-2" (click)="pdfExport()">
+    </div>
+
+    <div class="table-responsive m-4" id="forPdf" #forPdf>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Patient Name</th>
+                    <th>Animal Type</th>
+                    <th>Owner Name</th>
+                    <th>Owner Surname</th>
+                    <th>Appointment Date and Time</th>
+                    <th>Appointment Duration</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let appointment of appointments">
+                    <td>{{appointment.appointmentId}}</td>
+                    <td>{{appointment.patientName}}</td>
+                    <td>{{appointment.animalType}}</td>
+                    <td>{{appointment.ownerName}}</td>
+                    <td>{{appointment.ownerSurname}}</td>
+                    <td>{{appointment.appointmentDate}} {{appointment.appointmentTime}}</td>
+                    <td>{{appointment.appointmentDuration}} mins</td>
+                    <td><button [routerLink] = "['/appointments', appointment.appointmentId]" type="button" class="btn btn-primary">View</button></td>
+                    <td><button [routerLink] = "['/appointments/update', appointment.appointmentId]" type="button" class="btn btn-warning">Update</button></td>
+                    <!-- Only users with an admin role can delete an appointment -->
+                    <td><button *ngIf="role == 'ADMIN'" (click)="deleteAppointment(appointment.appointmentId)" type="button" class="btn btn-danger">Delete</button></td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+<!-- 
+<div *ngIf="role == 'RECEPTIONIST'">
+    RECEPTIONIST!!
+</div> -->

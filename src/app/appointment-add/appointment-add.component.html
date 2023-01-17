@@ -1,0 +1,116 @@
+<h5 class="alert alert-dark mt-4 mb-4 ms-2 mx-2 text-center">Add an appointment</h5>
+
+<div class="container" style="width: 45%;">
+    <form novalidate [formGroup]="appointmentForm" (ngSubmit)="submitForm()">
+
+        <div class="form-group mt-2 mb-2">
+            <label for="patientName">Patient Name</label>
+            <input type="text" class="form-control" id="patientName" formControlName="patientName"/>
+            <span class="help-block" *ngIf="(appointmentForm.get('patientName').touched
+                    || appointmentForm.get('patientName').dirty)
+                    && appointmentForm.get('patientName').errors">
+                <span style="color: red;">Patient Name is required!</span>
+            </span>
+        </div>
+        
+        <div class="form-group mt-2 mb-2">
+            <label for="animalType">Animal Type</label>
+            <input type="text" class="form-control" id="animalType" formControlName="animalType">
+            <span class="help-block" *ngIf="(appointmentForm.get('animalType').touched
+                    || appointmentForm.get('animalType').dirty)
+                    && appointmentForm.get('animalType').errors">
+                <span style="color: red;">Animal Type is required!</span>
+            </span>
+        </div>
+        <div class="form-group mt-2 mb-2">
+            <label for="ownerIdCardNumber">Owner ID Card Number</label>
+            <input type="text" class="form-control" id="ownerIdCardNumber" formControlName="ownerIdCardNumber">
+            <span class="help-block" *ngIf="(appointmentForm.get('ownerIdCardNumber').touched
+                    || appointmentForm.get('ownerIdCardNumber').dirty)
+                    && appointmentForm.get('ownerIdCardNumber').errors">
+                <span *ngIf="appointmentForm.get('ownerIdCardNumber').errors.required" style="color: red;">Owner ID Card Number is required!</span>
+                <span *ngIf="appointmentForm.get('ownerIdCardNumber').errors.pattern" style="color: red;">Owner ID Card Number should contain numbers followed by a capital letter!</span>
+            </span>
+        </div>
+        <div class="form-group mt-2 mb-2">
+            <label for="ownerName">Owner Name</label>
+            <input type="text" class="form-control" id="ownerName" formControlName="ownerName">
+            <span class="help-block" *ngIf="(appointmentForm.get('ownerName').touched
+                    || appointmentForm.get('ownerName').dirty)
+                    && appointmentForm.get('ownerName').errors">
+                <span style="color: red;">Owner Name is required!</span>
+            </span>
+        </div>
+        <div class="form-group mt-2 mb-2">
+            <label for="ownerSurname">Owner Surname</label>
+            <input type="text" class="form-control" id="ownerSurname" formControlName="ownerSurname">
+            <span class="help-block" *ngIf="(appointmentForm.get('ownerSurname').touched
+                    || appointmentForm.get('ownerSurname').dirty)
+                    && appointmentForm.get('ownerSurname').errors">
+                <span style="color: red;">Owner Surname is required!</span>
+            </span>
+        </div>
+        <div class="form-group mt-2 mb-2">
+            <label for="ownerContactNumber">Owner Contact Number</label>
+            <input type="text" class="form-control" id="ownerContactNumber" formControlName="ownerContactNumber">
+            <span class="help-block" *ngIf="(appointmentForm.get('ownerContactNumber').touched
+                    || appointmentForm.get('ownerContactNumber').dirty)
+                    && appointmentForm.get('ownerContactNumber').errors">
+                <span *ngIf="appointmentForm.get('ownerContactNumber').errors.required" style="color: red;">Owner Contact Number is required!</span>
+                <span *ngIf="appointmentForm.get('ownerContactNumber').errors.min" style="color: red;">Owner Contact Number must be an unsigned number!</span>
+                <span *ngIf="appointmentForm.get('ownerContactNumber').errors.pattern" style="color: red;">Owner Contact Number must be a numerical value and have at least 8 numbers!</span>
+            </span>
+        </div>
+        <div class="form-group mt-2 mb-2">
+            <label for="appointmentDate">Appointment Date</label>
+            <input type="date" class="form-control" id="appointmentDate" formControlName="appointmentDate">
+            <span class="help-block" *ngIf="(appointmentForm.get('appointmentDate').touched
+                    || appointmentForm.get('appointmentDate').dirty)
+                    && appointmentForm.get('appointmentDate').errors">
+                <span style="color: red;">Appointment Date is required!</span>
+            </span>
+        </div>
+        <div class="form-group mt-2 mb-2">
+            <label for="appointmentTime">Appointment Time:</label>
+            <input type="text" class="form-control" id="appointmentTime" formControlName="appointmentTime">
+            <span class="help-block" *ngIf="(appointmentForm.get('appointmentTime').touched
+                    || appointmentForm.get('appointmentTime').dirty)
+                    && appointmentForm.get('appointmentTime').errors">
+                <span style="color: red;">Appointment Time is required!</span>
+            </span>
+        </div>
+        <div class="form-group mt-2 mb-2">
+            <label for="appointmentDuration">Appointment Duration</label>
+            <select class="form-control" id="appointmentDuration" formControlName="appointmentDuration">
+              <option value=10>10 mins</option>
+              <option value=15>15 mins</option>
+              <option value=30>30 mins</option>
+            </select>
+            <span class="help-block" *ngIf="(appointmentForm.get('appointmentDuration').touched
+                    || appointmentForm.get('appointmentDuration').dirty)
+                    && appointmentForm.get('appointmentDuration').errors">
+                <span style="color: red;">Appointment Duration is required!</span>
+            </span>
+        </div>
+        <div class="form-group mt-2 mb-2">
+            <label for="reasonForAppointment">Reason for Appointment</label>
+            <input type="text" class="form-control" id="reasonForAppointment" formControlName="reasonForAppointment">
+            <span class="help-block" *ngIf="(appointmentForm.get('reasonForAppointment').touched
+                    || appointmentForm.get('reasonForAppointment').dirty)
+                    && appointmentForm.get('reasonForAppointment').errors">
+                <span style="color: red;">Reason for Appointment is required!</span>
+            </span>
+        </div>
+        <div class="form-group mt-2 mb-2" *ngIf="role != 'RECEPTIONIST'">
+            <label for="vetNotes">Vet Notes</label>
+            <input type="text" class="form-control" id="vetNotes"  formControlName="vetNotes">
+            <span class="help-block">
+                <span style="color: red;">Vet Notes is required!</span>
+            </span>
+        </div>
+        <!-- <div class="form-group">
+            <button class="btn btn-danger btn-block btn-lg">Create</button>
+        </div> -->
+        <button type="submit" class="btn btn-primary mt-2 mb-2" [disabled]="!appointmentForm.valid">Submit</button>
+    </form>
+</div>
